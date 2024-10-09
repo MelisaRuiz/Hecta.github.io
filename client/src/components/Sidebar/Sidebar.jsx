@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import SidebarButton from './SidebarButton';
 import SidebarGestion from './SidebarGestion';
+import SidebarComunidad from './SidebarComunidad';
+import SidebarAdministracion from './SidebarAdministracion';
 import SidebarConfig from './SidebarConfig';
-import './Sidebar.css';
+import './styles.css';
+import lineas from './Imagenes/lineas.png';
+import ayudaIcon from './Imagenes/interrogacion.png'; // Imagen para Ayuda
+import confIcon from './Imagenes/conf.png'; // Imagen para Configuración
 
-import lineas from '../imagenes/lineas.png'; // Icono de menú
-import ruedaIcon from '../imagenes/rueda.png'; // Icono de gestión
-import grafIcon from '../imagenes/graf.png'; // Icono de administración
-import confIcon from '../imagenes/conf.png'; // Icono de configuración
-import ayudaIcon from '../imagenes/interrogacion.png'; // Icono de ayuda
-
-const Sidebar = () => {
-  const [isMinimized, setIsMinimized] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsMinimized(!isMinimized);
-  };
-
+const Sidebar = ({ onClick, activeSection, isMinimized, toggleSidebar }) => {
   return (
-    <div class={`sidebar ${isMinimized ? 'minisidebar' : ''}`}>
-      <div class="nombre">
+    <div className={`sidebar ${isMinimized ? 'minisidebar' : ''}`}>
+      <div className="nombre">
         <span>Hecta</span>
         <button id="linea" onClick={toggleSidebar}>
           <img src={lineas} alt="Menu" />
@@ -27,41 +21,49 @@ const Sidebar = () => {
       </div>
 
       <nav>
-        <ul class="separacion">
+        <ul className="separacion">
           <li>
             <SidebarButton />
           </li>
         </ul>
-        <ul class="separacionabajo">
+        <ul className="separacionabajo">
           <li>
-            <SidebarGestion
-              icon={ruedaIcon}
-              text="Gestión"
-              options={['Opción 1', 'Opción 2']}
-            />
+            <NavLink to="/gestion" className={({ isActive }) => (isActive ? 'navlink-active' : '')}>
+              <SidebarGestion 
+                text="Gestión" 
+                onClick={() => onClick("Gestión")}
+                isActive={activeSection === "Gestión"}
+              />
+            </NavLink>
           </li>
           <li>
-            <SidebarGestion
-              icon={grafIcon}
-              text="Administración"
-              options={['Opción 1', 'Opción 2']}
-            />
+            <NavLink to="/registro" className={({ isActive }) => (isActive ? 'navlink-active' : '')}>
+              <SidebarAdministracion 
+                text="Administración" 
+                onClick={() => onClick("Administración")}
+                isActive={activeSection === "Administración"}
+              />
+            </NavLink>
           </li>
           <li>
-            <SidebarGestion
-              icon={ruedaIcon}
-              text="Comunidad"
-              options={['Opción 1', 'Opción 2']}
-            />
+            <NavLink to="/comunidad" className={({ isActive }) => (isActive ? 'navlink-active' : '')}>
+              <SidebarComunidad 
+                text="Comunidad" 
+                onClick={() => onClick("Comunidad")}
+                isActive={activeSection === "Comunidad"}
+              />
+            </NavLink>
           </li>
         </ul>
         <ul>
-          <li>
-            <SidebarConfig icon={confIcon} text="Configuración" />
-          </li>
-          <li>
-            <SidebarConfig icon={ayudaIcon} text="Ayuda" />
-          </li>
+          <ul className="separacionarriba">
+            <li>
+              <SidebarConfig icon={confIcon} text="Configuración" />
+            </li>
+            <li>
+              <SidebarConfig icon={ayudaIcon} text="Ayuda" />
+            </li>
+          </ul>
         </ul>
       </nav>
     </div>

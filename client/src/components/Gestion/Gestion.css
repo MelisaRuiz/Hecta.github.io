@@ -1,0 +1,96 @@
+.parcela {
+  width: calc(100% - 40px); /* Ajusta el ancho en función del margen */
+  max-height: 100vh; /* Mantiene la altura máxima */
+  padding: 20px; /* Espacio interno */
+  margin: 20px; /* Margen alrededor del contenedor */
+  background-color: #ffffff; /* Color de fondo */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para el contenedor */
+  display: flex; /* Usamos flexbox para el diseño principal */
+  transition: width 0.3s ease; /* Suaviza la transición del ancho */
+}
+
+/* Ajustar el ancho cuando la barra lateral está minimizada */
+.sidebar-minimized .parcela {
+  width: calc(100% - 95px); /* Ajusta el ancho cuando la barra lateral está minimizada */
+}
+  .datos-agricultor {
+    flex: 2; /* Ocupa más espacio */
+    padding-right: 20px; /* Espacio entre las secciones */
+  }
+  
+  .registrar-parcela {
+    flex: 1; /* Ocupa menos espacio */
+  }
+  
+  .parcela h3 {
+    padding-bottom: 5px;
+    margin: 10px;
+  }
+    
+  .parcela h4 {
+    padding-bottom: 5px;
+    margin: 10px;
+  }
+  
+  .parcela label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  select {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .parcela .form-section {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .form-column {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .parcela button {
+    padding: 5px;
+    background-color: rgb(240, 255, 255);
+    box-shadow: 0 4px 8px rgba(64, 143, 234, 0.704); /* Añadido el desplazamiento y difuminado */
+    border: none;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .parcela button:hover {
+    box-shadow: 0 4px 8px rgba(64, 143, 234, 0.704); /* Mantenido el mismo efecto en hover */
+  }
+  .parcela  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .parcela li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .parcela .modal {
+    position: fixed;
+    top: 50%; /* Ajustamos para que el modal esté más abajo */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrado horizontal y un poco ajustado vertical */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 20px;
+    max-height: 90vh; /* Para que no sobrepase la altura de la ventana */
+    overflow-y: auto; /* Para agregar scroll si es necesario */
+  }
+  

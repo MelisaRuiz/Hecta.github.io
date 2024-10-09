@@ -1,12 +1,12 @@
 import React from 'react';
 
 const SidebarConfig = ({ icon, text }) => (
-  <div class="confi-contenedor">
-    <div class="boton-confi">
+  <div className="confi-contenedor">
+    <div className="boton-confi">
       <a href="#">
         <button id="icon-confi">
-          <img src={icon} alt={text} class="icono-confi" />
-          <span class="confi">{text}</span>
+          <img src={icon} alt={text} className="icono-confi" />
+          <span className="confi">{text}</span>
         </button>
       </a>
     </div>

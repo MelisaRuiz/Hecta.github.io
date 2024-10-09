@@ -1,13 +1,13 @@
 import React from 'react';
-import userIcon from '../imagenes/user.png';
+import userIcon from './Imagenes/user.png'; 
 
 const SidebarButton = () => (
-  <div class="usuario-contenedor">
-    <div class="boton-usuario">
+  <div className="usuario-contenedor">
+    <div className="boton-usuario">
       <a href="#">
         <button id="icon-usuario">
-          <img src={userIcon} alt="Usuario" class="icono-usuario" />
-          <span class="usuario">Usuario</span>
+          <img src={userIcon} alt="Usuario" className="icono-usuario" />
+          <span className="usuario">Usuario</span>
         </button>
       </a>
     </div>

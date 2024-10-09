@@ -1,0 +1,572 @@
+/* -------------------- Variables Globales -------------------- */
+:root {
+  --color-sidebar: rgb(255, 255, 255); /* Color del botón inactivo */
+  --color-sombra-inactivo: rgba(0, 0, 0, 0.16) 0px 1px 4px; /* Sombra */
+  --color-boton-inactivo: var(--color-sidebar); /* Color del botón inactivo */
+  --color-boton-activo-gestion: rgb(240, 255, 255); /* Color del botón activo para gestión */
+  --color-boton-activo-comunidad: rgb(247, 232, 255); /* Color del botón activo para comunidad */
+  --color-boton-activo-administracion: rgb(255, 252, 232); /* Color del botón activo para administración */
+  --color-sombra-gestion: rgba(64, 143, 234, 0.704); /* Sombra para el botón de gestión */
+  --color-sombra-comunidad: rgba(209, 64, 234, 0.704); /* Sombra para el botón de comunidad */
+  --color-sombra-administracion: rgba(177, 175, 0, 0.704); /* Sombra para el botón de administración */
+
+}
+/* -------------------- Reset y Estilos Básicos -------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(rgba(237, 251, 254, 1), rgba(226, 220, 255, 1));
+  width: 100%;
+}
+
+/* -------------------- Sidebar -------------------- */
+.sidebar {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  width: 250px;
+  padding: 20px 7px;
+  background-color: var(--color-sidebar);
+  transition: width 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.minisidebar {
+  width: 75px;
+  transition: width 0.3s ease;
+}
+
+/* -------------------- Nombre de la Sidebar -------------------- */
+.sidebar .nombre {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 5px;
+}
+
+.nombre img {
+  height: 20px;
+  width: 25px;
+  margin-left: 3px;
+}
+
+.sidebar .nombre button {
+  min-width: 25px;
+  min-height: 25px;
+  border: none;
+  background-color: var(--color-sidebar);
+  margin-left: 110px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.minisidebar .nombre button {
+  min-width: 30px;
+  min-height: 25px;
+  margin-left: 10px;
+}
+
+/* -------------------- Estilos para el Título -------------------- */
+.sidebar .nombre span {
+  font-size: 25px;
+  margin-left: 5px;
+}
+
+.minisidebar .nombre span {
+  display: none;
+}
+/* -------------------- Listas y Separadores -------------------- */
+
+ul {
+  list-style: none;
+}
+
+.contenido {
+  display: block;
+}
+
+.contenido.oculto {
+  display: none;
+}
+
+.sidebar .separacion {
+  margin-bottom: 20px;
+}
+
+.sidebar .separacionabajo {
+  margin-left: 12px;
+}
+
+.sidebar .separacionabajo li{
+  margin-top: 20px;
+}
+
+.sidebar .separacionarriba {
+  margin-top: 20%;
+  position: absolute;/* Se asegura que esta sección esté en la parte inferior */
+}
+
+/* -------------------- Botón de Usuario -------------------- */
+.usuario-contenedor {
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  margin-left: 2px;
+}
+
+.usuario-contenedor .boton-usuario img.icono-usuario {
+  height: 25px; 
+  width: 24px; 
+  align-items: left;
+}
+
+.usuario-contenedor button {
+  min-width: 30px;
+  min-height: 25px;
+  border: none;
+  background-color: var(--color-sidebar); /* Color del botón de usuario inactivo */
+  box-shadow: var(--color-box-shadow) 0px 1px 4px;
+  transition: 0.3s ease;
+  cursor: pointer;
+  padding: 7px;
+}
+
+.usuario-contenedor .boton-usuario {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.usuario-contenedor span {
+  margin-top: 3px;
+  font-size: 15px;
+  margin-left: 10px;
+  position: absolute;
+}
+
+.minisidebar .usuario-contenedor span {
+  display: none;
+}
+
+.minisidebar .usuario-contenedor .boton-usuario {
+  box-shadow: none;
+}
+
+/* -------------------- Botones de Administración, Comunidad y Gestión -------------------- */
+/* ------ Administración ------ */
+
+/* Ajustes en el contenedor de administración */
+.administracion-contenedor {
+  display: inline-block; /* Ajusta el tamaño del contenedor al contenido */
+  margin: 0; /* Elimina márgenes innecesarios */
+  padding: 0; /* Elimina padding innecesario */
+  width: auto; /* Ajusta el tamaño al contenido del botón */
+  transition: 0.3s ease;
+}
+
+/* Ajustes en el botón de administración */
+.administracion-contenedor .boton-administracion {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-sidebar);
+  border: none;
+  width: 215px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.3s ease; /* UNA sola transición para ambas propiedades */
+}
+
+/* Ajustes en el enlace para evitar que se expanda más allá del botón */
+.administracion-contenedor a {
+  margin: 0;
+  padding: 0;
+  width: auto; /* Ajusta el ancho al contenido */
+  display: inline-block;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.administracion-contenedor .navlink-active {
+  width: auto; /* Ajusta el ancho al contenido */
+  padding: 0; /* Elimina padding innecesario */
+  margin: 0; /* Elimina márgenes innecesarios */
+  transition: 0.3s ease;
+}
+
+.administracion-contenedor .boton-administracion:hover {
+  box-shadow: var(--color-sombra-administracion) 0px 1px 4px; /* Sombra para el botón activo */
+}
+
+/* Cambios cuando el contenedor está activo */
+.administracion-contenedor.active .boton-administracion {
+  background-color: var(--color-boton-activo-administracion);
+  box-shadow: var(--color-sombra-administracion) 0px 1px 4px;
+  transition: background-color 0.2s ease, box-shadow 0.3s ease; /* UNA sola transición */
+}
+
+.administracion-contenedor button {
+  border: none;
+  background-color: var(--color-sidebar); /* Color del botón de gestión inactivo */
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.3s ease;
+  transition: background-color 0.2s ease;
+}
+
+/* Cambios en el botón cuando el contenedor está activo */
+.administracion-contenedor.active button {
+  transition: background-color 0.2s ease;
+  background-color: var(--color-boton-activo-administracion); /* Color del botón activo */
+  transition: 0.3s ease;
+}
+
+.administracion-contenedor .contenido-administracion {
+  display: block;
+}
+
+.administracion-contenedor .contenido-administracion.oculto {
+  display: none;
+}
+
+.administracion-contenedor span {
+  transition: 0.3s ease;
+  font-size: 15px;
+  margin-left: 10px;
+  margin-top: 1px;
+  position: absolute;
+}
+
+
+.administracion-contenedor .boton-administracion img.icono-administracion {
+  height: 20px !important;
+  width: 17px !important;
+  margin-left: 5px;
+  transition: filter 0.3s ease; /* Aplica transición con 'filter' */
+}
+
+.administracion-contenedor .boton-administracion img.flecha {
+  transition: 0.3s ease;
+  height: 7px;
+  width: 17px;
+  margin-right: 5px;
+}
+
+/* Oculta el span y la flecha en la minisidebar */
+.minisidebar .administracion-contenedor span {
+  display: none;
+}
+
+.minisidebar .administracion-contenedor .boton-administracion .desplegar {
+  display: none;
+}
+
+.minisidebar .administracion-contenedor .boton-administracion {
+  transition: 0.3s ease;
+  width: 38px; 
+}
+
+/* ------ Comunidad ------ */
+
+/* Ajustes en el contenedor de comunidad */
+.comunidad-contenedor {
+  display: inline-block; /* Ajusta el tamaño del contenedor al contenido */
+  margin: 0; /* Elimina márgenes innecesarios */
+  padding: 0; /* Elimina padding innecesario */
+  width: auto; /* Ajusta el tamaño al contenido del botón */
+  transition: 0.3s ease;
+}
+
+/* Ajustes en el botón de comunidad */
+.comunidad-contenedor .boton-comunidad {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-sidebar);
+    border: none;
+    width: 215px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.3s ease; /* UNA sola transición para ambas propiedades */
+  }
+  
+
+/* Ajustes en el enlace para evitar que se expanda más allá del botón */
+.comunidad-contenedor a {
+  margin: 0;
+  padding: 0;
+  width: auto; /* Ajusta el ancho al contenido */
+  display: inline-block;
+  text-decoration: none;
+}
+
+.comunidad-contenedor .navlink-active {
+  width: auto; /* Ajusta el ancho al contenido */
+  padding: 0; /* Elimina padding innecesario */
+  margin: 0; /* Elimina márgenes innecesarios */
+}
+
+.comunidad-contenedor .boton-comunidad:hover {
+  box-shadow: var(--color-sombra-comunidad) 0px 1px 4px; /* Sombra para el botón activo */
+}
+
+/* Cambios cuando el contenedor está activo */
+.comunidad-contenedor.active .boton-comunidad {
+  background-color: var(--color-boton-activo-comunidad);
+  box-shadow: var(--color-sombra-comunidad) 0px 1px 4px;
+  transition: background-color 0.2s ease, box-shadow 0.3s ease; /* UNA sola transición */
+}
+
+.comunidad-contenedor button {
+  border: none;
+  background-color: var(--color-sidebar); /* Color del botón de gestión inactivo */
+  cursor: pointer;
+  padding: 5px;
+  transition: background-color 0.2s ease;
+  transition: 0.3s ease;
+}
+
+/* Cambios en el botón cuando el contenedor está activo */
+.comunidad-contenedor.active button {
+  background-color: var(--color-boton-activo-comunidad); /* Color del botón activo */
+}
+
+
+.comunidad-contenedor .contenido-comunidad {
+  display: block;
+}
+
+.comunidad-contenedor .contenido-comunidad.oculto {
+  display: none;
+}
+
+.comunidad-contenedor span {
+  transition: 0.3s ease;
+  font-size: 15px;
+  margin-left: 10px;
+  margin-top: 1px;
+  position: absolute;
+}
+
+.comunidad-contenedor .boton-comunidad img.icono-comunidad {
+  height: 20px !important; /* Tamaño deseado */
+  width: 20px !important; /* O ajusta según tus necesidades */
+  margin-left: 4px;
+  transition: filter 0.3s ease; /* Aplica transición con 'filter' */
+}
+
+.comunidad-contenedor .boton-comunidad img.flecha {
+  transition: 0.3s ease;
+  height: 7px;
+  width: 17px;
+  margin-right: 5px;
+  transition: filter 0.3s ease; /* Aplica transición con 'filter' */
+}
+
+/* Oculta el span y la flecha en la minisidebar */
+.minisidebar .comunidad-contenedor span {
+  display: none;
+}
+
+.minisidebar .comunidad-contenedor .boton-comunidad .desplegar {
+  display: none;
+}
+
+.minisidebar .comunidad-contenedor .boton-comunidad {
+  transition: 0.3s ease;
+  width: 38px; 
+}
+
+
+/* ------ Gestión ------ */
+
+/* Ajustes en el contenedor de gestión */
+.gestion-contenedor {  
+  transition: 0.3s ease;
+  display: inline-block; /* Ajusta el tamaño del contenedor al contenido */
+  margin: 0; /* Elimina márgenes innecesarios */
+  padding: 0; /* Elimina padding innecesario */
+  width: auto; /* Ajusta el tamaño al contenido del botón */
+}
+
+
+/* Ajustes en el botón de gestión */
+
+.gestion-contenedor .boton-gestion {
+  transition: 0.3s ease;
+  transition: background-color 0.2s ease;
+  margin: 0; /* Elimina márgenes que expanden el área de clic */
+  padding: 0; /* Elimina padding innecesario */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-sidebar);
+  border: none;
+  width: 215px; /* Ajusta el tamaño al contenido */
+  box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+  cursor: pointer;
+}
+
+
+/* Ajustes en el enlace para evitar que se expanda más allá del botón */
+.gestion-contenedor a {
+  margin: 0;
+  padding: 0;
+  width: auto; /* Ajusta el ancho al contenido */
+  display: inline-block;
+  text-decoration: none;
+}
+
+.gestion-contenedor .navlink-active {
+  width: auto; /* Ajusta el ancho al contenido */
+  padding: 0; /* Elimina padding innecesario */
+  margin: 0; /* Elimina márgenes innecesarios */
+}
+
+
+.gestion-contenedor .boton-gestion:hover {
+  box-shadow: var(--color-sombra-gestion) 0px 1px 4px; /* Sombra para el botón activo */
+}
+
+
+/* Cambios cuando el contenedor está activo */
+.gestion-contenedor.active .boton-gestion {
+  background-color: var(--color-boton-activo-gestion); /* Color del botón activo */
+  box-shadow: var(--color-sombra-gestion) 0px 1px 4px; /* Sombra para el botón activo */
+  transition: background-color 0.2s ease;
+  transition: 0.3s ease;
+}
+
+.gestion-contenedor button {
+  border: none;
+  background-color: var(--color-sidebar); /* Color del botón de gestión inactivo */
+  cursor: pointer;
+  padding: 5px;
+  transition: background-color 0.2s ease;
+  transition: 0.3s ease;
+}
+
+
+/* Cambios en el botón cuando el contenedor está activo */
+.gestion-contenedor.active button {
+  
+  transition: background-color 0.2s ease;
+  background-color: var(--color-boton-activo-gestion); /* Color del botón activo */
+}
+
+.gestion-contenedor .contenido-gestion {
+  
+  display: block;
+}
+
+.gestion-contenedor .contenido-gestion.oculto {
+  display: none;
+}
+
+
+.gestion-contenedor span {
+  transition: 0.3s ease;
+  font-size: 15px;
+  margin-left: 10px;
+  margin-top: 1px;
+  position: absolute;
+}
+
+
+.gestion-contenedor .boton-gestion img.icono-gestion {
+  height: 20px !important; /* Tamaño deseado */
+  width: 20px !important; /* O ajusta según tus necesidades */
+  margin-left: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.gestion-contenedor .boton-gestion img.flecha {
+  transition: 0.3s ease;
+  height: 7px;
+  width: 17px;
+  margin-right: 5px;
+}
+
+
+/* Oculta el span y la flecha en la minisidebar */
+.minisidebar .gestion-contenedor span {
+  display: none;
+}
+
+.minisidebar .gestion-contenedor .boton-gestion .desplegar {
+  display: none;
+}
+
+
+.minisidebar .gestion-contenedor .boton-gestion {
+  transition: 0.3s ease;
+  width: 38px; 
+}
+
+
+/* -------------------- Configuración y Ayuda -------------------- */
+/*-------Boton-Configuracion---------*/
+
+.confi-contenedor {
+  cursor: pointer;
+  border: none;
+  background-color: var(--color-sidebar);
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px;
+  margin-left: 2px;
+}
+
+.confi-contenedor .boton-confi img.icono-confi {    
+  cursor: pointer;
+  height: 22px; 
+  width: 22px; 
+  align-items: left;
+  margin-left: 5px;
+}
+
+.confi-contenedor button {
+  min-width: 15px;
+  min-height: 20px;
+  border: none;
+  background-color: var(--color-sidebar);
+  transition: 0.3s ease;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.confi-contenedor .boton-confi {
+  display: flex;
+  align-items: center;
+}
+
+.confi-contenedor span {
+  font-size: 15px;
+  margin-left: 10px;
+  margin-top: 1px;
+  position: absolute;
+  transition: 0.3s ease;
+}
+
+.minisidebar .confi-contenedor span {
+  transition: 0.3s ease;
+  display: none;
+}

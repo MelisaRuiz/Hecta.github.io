@@ -1,44 +1,62 @@
+
+
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.main-content{
+  display: flex;
+  flex-direction: column; /* Cambiamos la dirección de la columna */
+  padding: 10px;
+}
+
+
+/* Agrupar main-content y sidebare para alinearlos en una fila */
+.top-row {
+  display: flex;
+  height: 250px;
+
 }
 
 .container {
-  display: flex;
-  margin: 20px;
-  height: 50%;
+  width: 50%; /* Ajusta el ancho al 48% para que quepan en una fila */
+  margin: 10px;
+  padding: 20px;
 }
 
-.main-content {
-  background-color: #ffffff;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
 .sidebare {
-  background-color: #ffffff;
-  width: 250px;
+  width: 50%; /* Ajusta el ancho al 48% para que quepan en una fila */
+  margin: 10px;
   padding: 20px;
-  margin-left: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-grafics {
+  height: 250px;
+  width: 45%;
+  margin-top: 20px;
+  margin-left: 10px;
+  padding: 20px;
 }
 
 .modal {
   position: fixed;
-  top: 25%;
-  left: 30%;
+  top: 35%;
+  left: 58%;
   transform: translate(-50%, -50%);
   padding: 20px;
+  width: 400px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
 
 .modal h3 {
-  margin-top: 10px;
   display: flex;
+  margin-left: 40%;
 }
 
 .btn-cargar {
@@ -81,26 +99,6 @@ th {
   padding: 10px;
 }
 
-.estado-financiero .in-process {
-  background-color: #ffeb3b;
-  color: #000;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.estado-financiero .completed {
-  background-color: #4caf50;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.estado-financiero .pending {
-  background-color: #f44336;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px;
-}
 
 .preview {
   position: fixed;
@@ -111,4 +109,48 @@ th {
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+}
+
+
+/* Añadir box-shadow para dar relieve */
+.container, .sidebare, .container-grafics, .preview, .modal {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+
+.btn-cargar:disabled {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
+}
+
+.btn-iniciar-ejercicio:disabled {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
+}
+
+
+.top-row button {
+  padding: 5px;
+  background-color: rgb(255, 255, 255); /* Color del botón activo para administración */
+  box-shadow:  0 1px 5px rgb(177, 175, 0, 0.704); /* Añadido el desplazamiento y difuminado */
+  border: none;
+  cursor: pointer;
+}
+
+.top-row button:hover {
+  box-shadow:  0 1px 5px rgb(177, 175, 0, 0.704); /* Añadido el desplazamiento y difuminado */
+}
+
+
+.top-row .modal {
+  display: flex;
+  flex-direction: column; 
+  height: 300px; /* Altura fija del modal */
+  display: block; /* Modales como bloques */
+  margin-top: 10px; /* Margen superior entre modales */
+ /* Ancho ajustado con márgenes */
+  background-color: #ffffff; /* Color de fondo */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para los modales */
+  padding: 20px; /* Espacio interno */
 }

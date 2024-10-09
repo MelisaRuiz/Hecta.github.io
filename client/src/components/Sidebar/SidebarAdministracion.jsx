@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
-import gestionIcon from './Imagenes/rueda.png';
+import administracionIcon from './Imagenes/graf.png';
 import flechaIcon from './Imagenes/flecha.png';
 import PropTypes from 'prop-types';
 
-const SidebarGestion = ({ text, options = [], onClick, isActive }) => {
+const SidebarAdministracion = ({ text, options = [], onClick, isActive }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleGestion = () => {
+  const toggleAdministracion = () => {
     setIsOpen(!isOpen);
     onClick(text); // Notifica al componente padre cuando se selecciona una opción
   };
 
   const handleFlechaClick = (e) => {
     e.stopPropagation(); // Evita que el clic en la flecha active/desactive el botón principal
-    toggleGestion(); // Mantiene la funcionalidad de desplegar
+    toggleAdministracion(); // Mantiene la funcionalidad de desplegar
   };
 
   return (
-    <div className={`gestion-contenedor boton-contenedor ${isActive ? 'active' : ''}`}>
-      <div className="boton-gestion" onClick={toggleGestion}>
-        <button id="icono-gestion">
-          <img src={gestionIcon} alt={text} className="icono-gestion" />
-          <span className="gestion">{text}</span>
+    <div className={`administracion-contenedor boton-contenedor ${isActive ? 'active' : ''}`}>
+      <div className="boton-administracion" onClick={toggleAdministracion}>
+        <button id="icono-administracion">
+          <img src={administracionIcon} alt={text} className="icono-administracion" />
+          <span className="administracion">{text}</span>
         </button>
         <button id="desplegar" onClick={handleFlechaClick} className="desplegar"> {/* Cambiado a className */}
           <img src={flechaIcon} alt="flecha" className="flecha" />
         </button>
       </div>
-      <div className={`contenido-gestion ${isOpen ? '' : 'oculto'}`}>
+      <div className={`contenido-administracion ${isOpen ? '' : 'oculto'}`}>
         {options.map((option, index) => (
           <a href="#" key={index} onClick={() => onClick(option)}>
             {option}
@@ -38,11 +38,11 @@ const SidebarGestion = ({ text, options = [], onClick, isActive }) => {
   );
 };
 
-SidebarGestion.propTypes = {
+SidebarAdministracion.propTypes = {
   text: PropTypes.string.isRequired,
   options: PropTypes.array,
   onClick: PropTypes.func.isRequired,
-  isActive: PropTypes.bool // Maneja si el ítem está activo
+  isActive: PropTypes.bool // Controla el estado activo
 };
 
-export default SidebarGestion;
+export default SidebarAdministracion;
