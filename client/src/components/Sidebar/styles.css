@@ -168,30 +168,32 @@ ul {
 
 /* -------------------- Botones de Administración, Comunidad y Gestión -------------------- */
 /* ------ Administración ------ */
-
-/* Ajustes en el contenedor de administración */
-.administracion-contenedor {
+.administracion-contenedor {  
+  transition: 0.3s ease;
   display: inline-block; /* Ajusta el tamaño del contenedor al contenido */
   margin: 0; /* Elimina márgenes innecesarios */
   padding: 0; /* Elimina padding innecesario */
   width: auto; /* Ajusta el tamaño al contenido del botón */
-  transition: 0.3s ease;
 }
 
-/* Ajustes en el botón de administración */
+
+/* Ajustes en el botón de administracion */
+
 .administracion-contenedor .boton-administracion {
-  margin: 0;
-  padding: 0;
+  transition: 0.3s ease;
+  transition: background-color 0.2s ease;
+  margin: 0; /* Elimina márgenes que expanden el área de clic */
+  padding: 0; /* Elimina padding innecesario */
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-sidebar);
   border: none;
-  width: 215px;
-  box-sizing: border-box;
+  width: 215px; /* Ajusta el tamaño al contenido */
+  box-sizing: border-box; /* Incluye padding y borde en el ancho total */
   cursor: pointer;
-  transition: background-color 0.2s ease, box-shadow 0.3s ease; /* UNA sola transición para ambas propiedades */
 }
+
 
 /* Ajustes en el enlace para evitar que se expanda más allá del botón */
 .administracion-contenedor a {
@@ -200,50 +202,54 @@ ul {
   width: auto; /* Ajusta el ancho al contenido */
   display: inline-block;
   text-decoration: none;
-  transition: 0.3s ease;
 }
 
 .administracion-contenedor .navlink-active {
   width: auto; /* Ajusta el ancho al contenido */
   padding: 0; /* Elimina padding innecesario */
   margin: 0; /* Elimina márgenes innecesarios */
-  transition: 0.3s ease;
 }
+
 
 .administracion-contenedor .boton-administracion:hover {
   box-shadow: var(--color-sombra-administracion) 0px 1px 4px; /* Sombra para el botón activo */
 }
 
+
 /* Cambios cuando el contenedor está activo */
 .administracion-contenedor.active .boton-administracion {
-  background-color: var(--color-boton-activo-administracion);
-  box-shadow: var(--color-sombra-administracion) 0px 1px 4px;
-  transition: background-color 0.2s ease, box-shadow 0.3s ease; /* UNA sola transición */
+  background-color: var(--color-boton-activo-administracion); /* Color del botón activo */
+  box-shadow: var(--color-sombra-administracion) 0px 1px 4px; /* Sombra para el botón activo */
+  transition: background-color 0.2s ease;
+  transition: 0.3s ease;
 }
 
 .administracion-contenedor button {
   border: none;
-  background-color: var(--color-sidebar); /* Color del botón de gestión inactivo */
+  background-color: var(--color-sidebar); /* Color del botón de administracion inactivo */
   cursor: pointer;
   padding: 5px;
-  transition: 0.3s ease;
   transition: background-color 0.2s ease;
+  transition: 0.3s ease;
 }
+
 
 /* Cambios en el botón cuando el contenedor está activo */
 .administracion-contenedor.active button {
+  
   transition: background-color 0.2s ease;
   background-color: var(--color-boton-activo-administracion); /* Color del botón activo */
-  transition: 0.3s ease;
 }
 
 .administracion-contenedor .contenido-administracion {
+  
   display: block;
 }
 
-.administracion-contenedor .contenido-administracion.oculto {
+.administracioncontenedor .contenido-administracion.oculto {
   display: none;
 }
+
 
 .administracion-contenedor span {
   transition: 0.3s ease;
@@ -261,12 +267,14 @@ ul {
   transition: filter 0.3s ease; /* Aplica transición con 'filter' */
 }
 
+
 .administracion-contenedor .boton-administracion img.flecha {
   transition: 0.3s ease;
   height: 7px;
   width: 17px;
   margin-right: 5px;
 }
+
 
 /* Oculta el span y la flecha en la minisidebar */
 .minisidebar .administracion-contenedor span {
@@ -277,11 +285,11 @@ ul {
   display: none;
 }
 
+
 .minisidebar .administracion-contenedor .boton-administracion {
   transition: 0.3s ease;
   width: 38px; 
 }
-
 /* ------ Comunidad ------ */
 
 /* Ajustes en el contenedor de comunidad */

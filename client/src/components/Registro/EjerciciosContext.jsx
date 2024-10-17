@@ -1,124 +1,74 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react'; 
+import { useCuentas } from './CuentasContext'; 
+import { useParcelas } from '../Gestion/ParcelasContext'; 
 
-// Crear el contexto de Ejercicios
 const EjerciciosContext = createContext();
 
-// Hook para usar el contexto de Ejercicios
 export const useEjercicios = () => {
     return useContext(EjerciciosContext);
 };
 
-// Proveedor del contexto de Ejercicios
 export const EjerciciosProvider = ({ children }) => {
     const [movimientos, setMovimientos] = useState({});
-    const [ejercicios, setEjercicios] = useState({});
+    const [ejercicios, setEjercicios] = useState({}); 
+    const { agregarCuenta } = useCuentas(); 
+    const { parcelas } = useParcelas(); 
 
-    // Función para crear un nuevo ejercicio automáticamente
-    const crearEjercicioAutomaticamente = (parcelasEnPreparacion) => {
-        if (!Array.isArray(parcelasEnPreparacion) || parcelasEnPreparacion.length === 0) {
-            console.error("No hay parcelas en preparación para crear un ejercicio.");
-            return;
+    useEffect(() => {
+        verificarEstadoEjercicio(); 
+    }, [parcelas]);
+
+    const verificarEstadoEjercicio = () => {
+        const ejercicioEnProceso = Object.values(ejercicios).some(ejercicio => ejercicio.estado === 'En Proceso');
+        
+        // Si no hay un ejercicio en proceso y hay parcelas registradas, se crea uno nuevo
+        if (!ejercicioEnProceso && parcelas.length > 0) {
+            crearNuevoEjercicio();
         }
-
-        const nuevoEjercicio = {
-            nombreEjercicio: `Ejercicio Nueva Fase ${new Date().toLocaleDateString()}`,
-            estado: 'En Proceso',
-            fases: [], // Registro de fases para cada parcela
-            parcelas: parcelasEnPreparacion, // Asignar parcelas al nuevo ejercicio
-        };
-
-        // Agregar el nuevo ejercicio al estado
-        setEjercicios(prevEjercicios => ({
-            ...prevEjercicios,
-            [nuevoEjercicio.nombreEjercicio]: nuevoEjercicio
-        }));
-
-        console.log("Nuevo ejercicio creado automáticamente:", nuevoEjercicio);
     };
 
-    // Función para agregar un movimiento
-    const agregarMovimiento = (nuevoMovimiento, parcelasSeleccionadas) => {
+    const crearNuevoEjercicio = () => {
+        const nuevoEjercicio = `Ejercicio ${Object.keys(ejercicios).length + 1}`;
+        setEjercicios(prev => ({
+            ...prev,
+            [nuevoEjercicio]: {
+                estado: 'En Proceso',
+                parcelas: parcelas.map(parcela => parcela.id), // Asignamos las parcelas actuales al ejercicio
+                movimientos: {},
+            },
+        }));
+
+        // Creamos las cuentas iniciales para el ejercicio
+        agregarCuenta(nuevoEjercicio, { nombre: 'Ingresos', saldo: 0 });
+        agregarCuenta(nuevoEjercicio, { nombre: 'Gastos', saldo: 0 });
+        agregarCuenta(nuevoEjercicio, { nombre: 'Activos', saldo: 0 });
+        agregarCuenta(nuevoEjercicio, { nombre: 'Pasivos', saldo: 0 });
+
+        console.log(`Nuevo ejercicio habilitado: ${nuevoEjercicio}`);
+    };
+
+    const agregarTransaccion = (nuevaTransaccion) => {
         const ejercicioSeleccionado = Object.keys(ejercicios).find(ejercicio => ejercicios[ejercicio].estado === 'En Proceso');
-        
         if (!ejercicioSeleccionado) {
             alert("No hay ejercicio en proceso para agregar un movimiento.");
             return;
         }
 
-        parcelasSeleccionadas.forEach(idParcela => {
-            const parcela = ejercicios[ejercicioSeleccionado].parcelas.find(p => p.id === idParcela);
-            const faseActual = parcela.etapa;
-
-            // Registrar el movimiento solo para la fase actual de cada parcela seleccionada
-            setMovimientos(prev => ({
+        setMovimientos(prev => {
+            const movimientosEjercicio = prev[ejercicioSeleccionado] || {};
+            return {
                 ...prev,
                 [ejercicioSeleccionado]: {
-                    ...(prev[ejercicioSeleccionado] || {}),
-                    [faseActual]: [
-                        ...(prev[ejercicioSeleccionado]?.[faseActual] || []),
-                        nuevoMovimiento,
+                    ...movimientosEjercicio,
+                    [nuevaTransaccion.fase]: [
+                        ...(movimientosEjercicio[nuevaTransaccion.fase] || []),
+                        nuevaTransaccion,
                     ],
-                },
-            }));
-        });
-    };
-
-    // Función para actualizar la fase de las parcelas
-    const actualizarFaseParcelas = (parcelasSeleccionadas, nuevasFases) => {
-        const ejercicioSeleccionado = Object.keys(ejercicios).find(ejercicio => ejercicios[ejercicio].estado === 'En Proceso');
-        
-        if (!ejercicioSeleccionado) {
-            alert("No hay ejercicio en proceso para actualizar las fases.");
-            return;
-        }
-
-        // Iterar sobre las parcelas seleccionadas y sus nuevas fases
-        nuevasFases.forEach((nuevaFase, index) => {
-            const idParcela = parcelasSeleccionadas[index];
-            const parcela = ejercicios[ejercicioSeleccionado].parcelas.find(p => p.id === idParcela);
-
-            // Actualizar la etapa de la parcela
-            if (parcela) {
-                // Actualizamos la fase de la parcela
-                parcela.etapa = nuevaFase; 
-
-                // Agregar la nueva fase al registro del ejercicio
-                setEjercicios(prev => ({
-                    ...prev,
-                    [ejercicioSeleccionado]: {
-                        ...prev[ejercicioSeleccionado],
-                        fases: [
-                            ...(prev[ejercicioSeleccionado].fases || []),
-                            { parcela: parcela.id, nuevaFase },
-                        ],
-                    },
-                }));
-
-                // Crear un nuevo ejercicio si alguna de las parcelas ha pasado a "Preparación"
-                if (nuevaFase === "Preparación") {
-                    crearEjercicioAutomaticamente(parcelasSeleccionadas);
                 }
-            }
+            };
         });
-    };
 
-    // Función para cerrar el ejercicio
-    const cerrarEjercicio = (ejercicioSeleccionado) => {
-        const parcelasEnEjercicio = ejercicios[ejercicioSeleccionado].parcelas;
-        const todasComercializadas = parcelasEnEjercicio.every(parcela => parcela.etapa === "Comercialización");
-
-        if (todasComercializadas) {
-            setEjercicios(prev => ({
-                ...prev,
-                [ejercicioSeleccionado]: {
-                    ...prev[ejercicioSeleccionado],
-                    estado: 'Cerrado', // Cambiar el estado a 'Cerrado'
-                }
-            }));
-            console.log(`El ejercicio ${ejercicioSeleccionado} ha sido cerrado.`);
-        } else {
-            alert("No se puede cerrar el ejercicio porque no todas las parcelas han completado la fase de Comercialización.");
-        }
+        console.log('Transacción agregada:', nuevaTransaccion);
     };
 
     return (
@@ -128,10 +78,7 @@ export const EjerciciosProvider = ({ children }) => {
                 setMovimientos,
                 ejercicios,
                 setEjercicios,
-                crearEjercicioAutomaticamente,
-                agregarMovimiento,
-                actualizarFaseParcelas,
-                cerrarEjercicio,
+                agregarTransaccion, 
             }}
         >
             {children}

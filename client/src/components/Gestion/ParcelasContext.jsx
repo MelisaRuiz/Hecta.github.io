@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 // Crear el contexto
 const ParcelasContext = createContext();
@@ -6,52 +6,37 @@ const ParcelasContext = createContext();
 // Proveedor del contexto
 export const ParcelasProvider = ({ children }) => {
     const [parcelas, setParcelas] = useState([]);
-    
+
+    // Función para generar un nuevo ID
+    const generarNuevoId = () => {
+        return parcelas.length > 0 ? Math.max(...parcelas.map(p => p.id)) + 1 : 1; // Comienza desde 1 si no hay parcelas
+    };
+
+    // Función para validar los datos de la parcela
+    const validarParcela = (nombreParcela, tipoCultivo, tamano) => {
+        if (!nombreParcela || !tipoCultivo || tamano <= 0) {
+            throw new Error("Todos los campos son obligatorios y el tamaño debe ser mayor que cero.");
+        }
+    };
+
     // Función para agregar una nueva parcela
-    const agregarParcela = (nuevaParcela) => {
-        setParcelas(prevParcelas => [...prevParcelas, nuevaParcela]);
-        console.log('Parcela agregada:', nuevaParcela);
-    };
+    const agregarParcela = (nombreParcela, tipoCultivo, tamano, descripcion, etapa) => {
+        try {
+            validarParcela(nombreParcela, tipoCultivo, tamano); // Validar datos
+            const nuevoId = generarNuevoId(); // Genera un nuevo ID
+            const nuevaParcela = { id: nuevoId, nombre: nombreParcela, tipoCultivo, tamano, descripcion, etapa };
 
-    // Función para avanzar las fases de las parcelas seleccionadas
-    const avanzarFaseParcelas = (idsSeleccionados) => {
-        const nuevasParcelas = parcelas.map(parcela => 
-            idsSeleccionados.includes(parcela.id) 
-                ? { ...parcela, etapa: siguienteFase(parcela.etapa) } // Cambia 'fase' por 'etapa'
-                : parcela
-        );
-
-        setParcelas(nuevasParcelas);
-        console.log('Fases avanzadas para parcelas con IDs:', idsSeleccionados);
-    };
-
-    // Lógica para determinar la siguiente fase
-    const siguienteFase = (etapaActual) => {
-        const fases = ['Preparación', 'Cosecha', 'Comercialización'];
-        const indiceActual = fases.indexOf(etapaActual);
-        return indiceActual < fases.length - 1 ? fases[indiceActual + 1] : etapaActual; // No avanzar más allá de la última fase
-    };
-
-    // Función para manejar el registro de un nuevo ejercicio
-    const manejarNuevoEjercicio = (parcelasSeleccionadas) => {
-        const nuevoEjercicio = {
-            nombreEjercicio: "Ejercicio Nueva Fase",
-            producto: "Producto Ejemplo",
-            hectareas: 10,
-            etapaSeleccionada: "Comercialización",
-            parcelas: parcelasSeleccionadas,
-        };
-
-        console.log('Nuevo ejercicio creado:', nuevoEjercicio);
-        // Aquí puedes realizar la lógica para guardar el nuevo ejercicio
+            setParcelas(prevParcelas => [...prevParcelas, nuevaParcela]);
+            console.log('Parcela agregada:', nuevaParcela);
+        } catch (error) {
+            console.error("Error al agregar la parcela:", error.message);
+        }
     };
 
     return (
         <ParcelasContext.Provider value={{
             parcelas,
             agregarParcela,
-            avanzarFaseParcelas,
-            manejarNuevoEjercicio,
         }}>
             {children}
         </ParcelasContext.Provider>

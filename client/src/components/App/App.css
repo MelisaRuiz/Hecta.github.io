@@ -26,11 +26,7 @@
 }
 
 .parcela {
-  width: calc(100% - 40px); /* Ajusta el ancho en función del margen */
-  transition: width 0.3s ease; /* Transición suave para el ancho */
+  flex-grow: 1; /* Permite que el contenido principal use el espacio restante */
+  transition: margin-left 0.3s ease; /* Suaviza la transición del margen */
 }
 
-/* Ajustar el ancho cuando la barra lateral está minimizada */
-.sidebar-minimized .parcela {
-  width: calc(100% - 40px); /* Ajusta el ancho cuando la barra lateral está minimizada */
-}

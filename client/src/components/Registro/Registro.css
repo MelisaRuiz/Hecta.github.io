@@ -1,6 +1,3 @@
-
-
-
 body {
   margin: 0;
   padding: 0;
@@ -18,7 +15,6 @@ body {
 .top-row {
   display: flex;
   height: 250px;
-
 }
 
 .container {
@@ -116,17 +112,6 @@ th {
 .container, .sidebare, .container-grafics, .preview, .modal {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-}
-
-
-.btn-cargar:disabled {
-  background-color: #d3d3d3;
-  cursor: not-allowed;
-}
-
-.btn-iniciar-ejercicio:disabled {
-  background-color: #d3d3d3;
-  cursor: not-allowed;
 }
 
 
